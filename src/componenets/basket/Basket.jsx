@@ -1,36 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "../UI/Modal";
 import TotalAmount from "./TotalAmount";
 import styled from "styled-components";
 import BasketItem from "./BasketItem";
+import { BasketContext } from "../store/BasketContext";
 
-function Basket() {
-  const items = [
-    {
-      id: Date.now().toString(),
-      title: "Sushi",
-      price: 22.99,
-      amount: 1,
-    },
-    {
-      id: Date.now().toString(),
-      title: "Schnitzel",
-      price: 16.0,
-      amount: 1,
-    },
-    {
-      id: Date.now().toString(),
-      title: "Burger",
-      price: 12.99,
-      amount: 1,
-    },
-    {
-      id: Date.now().toString(),
-      title: "Green Bowl",
-      price: 19.99,
-      amount: 1,
-    },
-  ];
+function Basket({ onClose }) {
+  const { items, updateBasketItem, deleteBasketItem } =
+    useContext(BasketContext);
+
+  const getTotalPrice = () => {
+    return items.reduce((sum, { price, amount }) => sum + amount * price, 0);
+  };
+
+  const decrementAmount = (id, amount) => {
+    console.log("blavla");
+    if (amount > 0) {
+      updateBasketItem({ amount: amount - 1, id });
+    } 
+    else {
+      deleteBasketItem(id);
+    }
+  };
+
+  const inrementAmount = (id, amount) => {
+    updateBasketItem({ amount: amount + 1, id });
+  };
 
   return (
     <Modal onClose={() => {}}>
@@ -40,6 +35,10 @@ function Basket() {
             {items.map((item) => {
               return (
                 <BasketItem
+                  key={item._id}
+                  decrementAmount={() => decrementAmount(item._id, item.amount)}
+                  incrementAmount={() => inrementAmount(item._id, item.amount)}
+                  deleteBasketItem={() => deleteBasketItem(item._id)}
                   title={item.title}
                   price={item.price}
                   amount={item.amount}
@@ -49,7 +48,12 @@ function Basket() {
           </FixedHeightContainer>
         ) : null}
 
-        <TotalAmount price={200.5034} onClose={() => {}} onOrder={() => []} />
+        <TotalAmount
+          price={getTotalPrice()}
+          onClose={onClose}
+          onOrder={() => []}
+          onCloseModal={onClose}
+        />
       </Content>
     </Modal>
   );

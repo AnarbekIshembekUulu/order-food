@@ -1,8 +1,8 @@
-import React from "react";
 import styled from "styled-components";
 import MealItemForm from "./MealItemForm";
 
 function MealItem({ title, description, price, id }) {
+  
   return (
     <ListStyle>
       <StyledItemInfo>
@@ -10,7 +10,7 @@ function MealItem({ title, description, price, id }) {
         <Description>{description}</Description>
         <span>$ {price}</span>
       </StyledItemInfo>
-      <MealItemForm id={id} />
+      <MealItemForm id={id} price={price}  title={title} />
     </ListStyle>
   );
 }

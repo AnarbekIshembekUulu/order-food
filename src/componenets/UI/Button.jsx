@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-function Button({ children, variant = "contained", borderStyle = "roundet" }) {
+function Button({
+  children,
+  variant = "contained",
+  borderStyle = "roundet",
+  onClick
+}) {
   return (
-    <StyledButton variant={variant} borderStyle={borderStyle}>
+    <StyledButton variant={variant} borderStyle={borderStyle} onClick={onClick}>
       {children}
     </StyledButton>
   );
@@ -25,7 +30,6 @@ const getColor = (props) => {
 const getBorderRadius = (props) => {
   return props.borderStyle === "roundet" ? "20px" : "6px";
 };
-
 
 const StyledButton = styled.button`
   padding: 10px 32px;

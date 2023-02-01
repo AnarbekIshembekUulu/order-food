@@ -1,10 +1,14 @@
-import React from "react";
 import styled from "styled-components";
 import Button from "../UI/Button";
-// import { ReactComponent as ModalIconPlus } from "../essets/icon/Component 6/Modal/plus.svg";
-// import { ReactComponent as ModalIconMinus } from "../essets/icon/Component 6/Modal/Vector.svg";
 
-function BasketItem({ title, price, amount }) {
+
+function BasketItem({
+  title,
+  price,
+  amount,
+  incrementAmount,
+  decrementAmount,
+}) {
   return (
     <Container>
       <Title>{title}</Title>
@@ -15,10 +19,19 @@ function BasketItem({ title, price, amount }) {
           <Amount>X {amount}</Amount>
         </PriceAndAmountContainer>
         <CounterContainer>
-          <Button size borderStyle={"squared"} variant="outlined">
+          <Button
+            size
+            borderStyle={"squared"}
+            variant="outlined"
+            onClick={(decrementAmount)}
+          >
             -
           </Button>
-          <Button borderStyle={"squared"} variant="outlined">
+          <Button
+            borderStyle={"squared"}
+            variant="outlined"
+            onClick={incrementAmount}
+          >
             +
           </Button>
         </CounterContainer>
@@ -78,4 +91,3 @@ const Content = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-

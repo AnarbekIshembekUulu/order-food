@@ -44,8 +44,6 @@ const ModalContent = ({ children }) => {
   return <StyledModalContent>{children}</StyledModalContent>;
 };
 
-// const backdropRoot = document.getElementById("backdrop");
-// const modalOverlayRoot = document.getElementById("modal-overlay");
 
 const Modal=({ children, onClose })=> {
   return (

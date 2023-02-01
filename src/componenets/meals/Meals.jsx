@@ -1,43 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { fetchApi } from "../../lib/feth";
 import MealItem from "./meal-item/MealItem";
 
-const dummiMeals = [
-  {
-    id: Date.now().toString(),
-    title: "Sushi",
-    description: "Finest fish and veggies ",
-    price: 22.99,
-  },
-  {
-    id: Date.now().toString(),
-    title: "Schnitzel",
-    description: "A german specialty! ",
-    price: 16.0,
-  },
-  {
-    id: Date.now().toString(),
-    title: "Burger",
-    description: "American, raw, meaty ",
-    price: 12.99,
-  },
-  {
-    id: Date.now().toString(),
-    title: "Green Bowl",
-    description: "Healthy...and green... ",
-    price: 19.99,
-  },
-];
 
 function Meals() {
+  const [meals, setMeals] = useState([]);
+  const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(true);
+
+  const getMeals = async () => {
+    try {
+      const response = await fetchApi("foods");
+      setMeals(response.data);
+      setLoading(false);
+    } catch (error) {
+      setError("Failed to load meals");
+    }
+  };
+
+  useEffect(() => {
+    getMeals();
+  }, []);
+
   return (
     // <Card>
     <Card>
-      {dummiMeals.map((meal) => {
+      {isLoading && !error && <p>Loading</p>}
+      {meals.map((meal) => {
         return (
           <MealItem
             title={meal.title}
-            id={meal.id}
+            id={meal._id}
             description={meal.description}
             price={meal.price}
           />

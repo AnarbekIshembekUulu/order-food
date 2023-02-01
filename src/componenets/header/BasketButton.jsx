@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { ReactComponent as BasketIcons } from "../essets/icon/Component 6/basket-icons.svg";
 
-function BasketButton({ count }) {
+function BasketButton({ count, ...restProps }) {
   return (
-    <StyledButton>
+    <StyledButton {...restProps}>
       <BasketIcons />
       <StyledTitle>Your cart</StyledTitle>
       <StyledCounter id="counter">{count || 0}</StyledCounter>
