@@ -1,67 +1,68 @@
-import { createContext, useEffect, useState } from "react";
-import { fetchApi } from "../../lib/feth";
+import { createContext } from "react";
+// import { fetchApi } from "../../lib/feth";
 
 export const BasketContext = createContext({
   items: [],
 });
 
 export const BasketProvider = ({ children }) => {
-  const [items, setItems] = useState([]);
-  const updateBasketItem = async ({ id, amount }) => {
-    try {
-      const { data } = await fetchApi(`basketItem/${id}/update`, {
-        method: "PUT",
-        body: { amount },
-      });
+  // const [items, setItems] = useState([]);
 
-      setItems(data.items);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const updateBasketItem = async ({ id, amount }) => {
+  //   try {
+  //     const { data } = await fetchApi(`basketItem/${id}/update`, {
+  //       method: "PUT",
+  //       body: { amount },
+  //     });
 
-  const deleteBasketItem = async (id) => {
-    try {
-      const { data } = await fetchApi(`basketItem/${id}/delete`, {
-        method: "DELETE",
-      });
+  //     setItems(data.items);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-      setItems(data.items);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const deleteBasketItem = async (id) => {
+  //   try {
+  //     const { data } = await fetchApi(`basketItem/${id}/delete`, {
+  //       method: "DELETE",
+  //     });
 
-  const getBasket = async () => {
-    try {
-      const { data } = await fetchApi("basket");
+  //     setItems(data.items);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-      setItems(data.items);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getBasket();
-  }, []);
+  // const getBasket = async () => {
+  //   try {
+  //     const { data } = await fetchApi("basket");
 
-  const addToBasket = async (newItem) => {
-    try {
-      const response = await fetchApi(`foods/${newItem.id}/addToBasket`, {
-        method: "POST",
-        body: { amount: newItem.amount },
-      });
-      setItems(response.data.items);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     setItems(data.items);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getBasket();
+  // }, []);
+
+  // const addToBasket = async (newItem) => {
+  //   try {
+  //     await fetchApi(`foods/${newItem.id}/addToBasket`, {
+  //       method: "POST",
+  //       body: { amount: newItem.amount },
+  //     });
+  //     setItems(response.data.items);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const state = {
-    items,
-    addToBasket,
-    updateBasketItem,
-    deleteBasketItem,
+    // items,
+    // addToBasket,
+    // updateBasketItem,
+    // deleteBasketItem,
   };
   return (
     <BasketContext.Provider value={state}>{children}</BasketContext.Provider>

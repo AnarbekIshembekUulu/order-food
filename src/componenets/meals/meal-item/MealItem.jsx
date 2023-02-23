@@ -22,7 +22,7 @@ const ListStyle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #d6d6d6;
+  border-bottom: 1px solid #e36262;
   &:last-child {
     border: none;
     margin-bottom: 0;
@@ -43,7 +43,7 @@ const StyledItemInfo = styled.div`
     font-weight: 700;
     font-size: 20px;
     line-height: 30px;
-    color: #ad5502;
+    color: #800000;
     margin-top: 4px;
   }
 `;

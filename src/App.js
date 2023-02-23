@@ -3,27 +3,45 @@ import styled from "styled-components";
 import Basket from "./componenets/basket/Basket";
 import Header from "./componenets/header/Header";
 import Meals from "./componenets/meals/Meals";
-import { BasketProvider } from "./componenets/store/BasketContext";
 import Summary from "./componenets/summary/Summary";
+import { useFoods } from "./hooks/useFoods";
+import { store } from "./componenets/store";
+import { Provider } from "react-redux";
 
-function App() {
+function AppContent() {
   const [isBasketVisible, setBasketVisible] = useState(false);
+  const { sortDirection, changeSortDirection, meals, isLoading, error} = useFoods();
 
-  const showBasketHandler = () => {
-    console.log("ddddddddddddddddddddd");
+  const clickHandler = () => {
     setBasketVisible((prevState) => !prevState);
   };
+
   return (
-    <BasketProvider>
-      <Header onShowBasket={showBasketHandler} />
+    <>
+      <Header onShowBasket={clickHandler} />
       <Content>
+        <select
+          onChange={(e) => changeSortDirection(e.target.value)}
+          value={sortDirection}
+        >
+          <option value={"ASCENDING"}>cheaper</option>
+          <option value={"DESCENDING"}>expensive</option>
+        </select>
         <Summary />
-        <Meals />
-        {isBasketVisible && <Basket onClose={showBasketHandler} />}
+        <Meals error={error} isLoading={isLoading} meals={meals} />
+        {isBasketVisible && <Basket onClose={clickHandler} />}
       </Content>
-    </BasketProvider>
+    </>
   );
 }
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <AppContent />
+    </Provider>
+  );
+};
 
 export default App;
 
